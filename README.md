@@ -4,6 +4,8 @@
 Download Dataset:
 https://docs.google.com/uc?id=0B0Obe9L1qtsnSXZEd0JCenIyejg&export=download
 
+All the codes are written Tensorflow
+
 Training:
 python training/seq2seq_attention.py
 
