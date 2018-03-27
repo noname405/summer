@@ -21,27 +21,44 @@ Sample articles and corrosponding summaries can be found in generated_summaries/
 All the codes are written Tensorflow
 
 SWAP-NET Parameter Settings:
+
 Dimension of LSTM hidden states: 200
+
 Dimension of word embeddings: 100
+
 Batch size: 16
+
 Vocabulary Size: 150000
+
 max timesteps of encoder (max input text words): 800
+
 max timesteps of decoder: 50
+
 Number of layers of LSTM: 1
+
 Optimizer: Adam with default parameters as,
+
     learning_rate=0.001,
     beta1=0.9,
     beta2=0.999
     
 Gradient Clipping Threshold: 2    
+
 Number of GPUs: 2,Tesla K-80
+
 Training time: 4 days
    
 Parameter Settings used by baseline Nallapati et al.:
+
 Dimension of LSTM hidden states: 200
+
 Dimension of word embeddings: 100
+
 Batch size: 64
+
 Vocabulary Size: 150000
+
 max timesteps of encoder (max input text words): 50 words per sentence
-max timesteps of decoder: 50
+
+
 Optimizer: adadelta    
