@@ -40,22 +40,22 @@ from pyrouge import Rouge155
 FLAGS = tf.app.flags.FLAGS
 
 # Where to find data
-tf.app.flags.DEFINE_string('data_path', '/datadrive/lstm_codes/textsum/codes/dataset/finished_files/chunked/train*', 'Path expression to tf.Example datafiles. Can include wildcards to access multiple datafiles.')
+tf.app.flags.DEFINE_string('data_path', 'finished_files/chunked/train*', 'Path expression to tf.Example datafiles. Can include wildcards to access multiple datafiles.')
 tf.app.flags.DEFINE_string('vocab_path', '', 'Path expression to text vocabulary file.')
-tf.app.flags.DEFINE_string('train_path', '/datadrive/lstm_codes/textsum/codes/new_codes/wn_2', 'Path expression to tf.Example datafiles. Can include wildcards to access multiple datafiles.')
-tf.app.flags.DEFINE_string('rouge_dir', '/datadrive/lstm_codes/textsum/codes/rouge/ROUGE-1.5.5/', 'Path expression to tf.Example datafiles. Can include wildcards to access multiple datafiles.')
+tf.app.flags.DEFINE_string('train_path', 'wn_2', 'Path expression to tf.Example datafiles. Can include wildcards to access multiple datafiles.')
+tf.app.flags.DEFINE_string('rouge_dir', 'rouge/ROUGE-1.5.5/', 'Path expression to tf.Example datafiles. Can include wildcards to access multiple datafiles.')
 
 # Important settings
 tf.app.flags.DEFINE_string('mode', 'train', 'must be one of train/eval/decode')
 tf.app.flags.DEFINE_boolean('single_pass', False, 'For decode mode only. If True, run eval on the full dataset using a fixed checkpoint, i.e. take the current checkpoint, and use it to produce one summary for each example in the dataset, write the summaries to file and then get ROUGE scores for the whole dataset. If False (default), run concurrent decoding, i.e. repeatedly load latest checkpoint, use it to produce summaries for randomly-chosen examples and log the results to screen, indefinitely.')
 
 # Where to save output
-tf.app.flags.DEFINE_string('log_root', '/datadrive/lstm_codes/textsum/codes/new_codes/wn_nocvg', 'Root directory for all logging.')
+tf.app.flags.DEFINE_string('log_root', 'log_dir', 'Root directory for all logging.')
 tf.app.flags.DEFINE_string('exp_name', 'exp_1', 'Name for experiment. Logs will be saved in a directory with this name, under log_root.')
 tf.app.flags.DEFINE_string('model_dir',
-                           'model_dir_rough', 'Path expression to tf.Example.')
+                           'model_dir_train', 'Path expression to tf.Example.')
 tf.app.flags.DEFINE_string('system_dir',
-                           'system_dir_rough', 'Path expression to tf.Example.')
+                           'system_dir_train', 'Path expression to tf.Example.')
 
 # Hyperparameters
 tf.app.flags.DEFINE_integer('hidden_dim', 200, 'dimension of RNN hidden states')
@@ -63,7 +63,6 @@ tf.app.flags.DEFINE_integer('emb_dim', 100, 'dimension of word embeddings')
 tf.app.flags.DEFINE_integer('batch_size', 16, 'minibatch size')
 tf.app.flags.DEFINE_integer('max_enc_steps', 800, 'max timesteps of encoder (max source text tokens)')
 tf.app.flags.DEFINE_integer('max_dec_steps', 50, 'max timesteps of decoder (max summary tokens)')
-tf.app.flags.DEFINE_integer('beam_size', 4, 'beam size for beam search decoding.')
 tf.app.flags.DEFINE_integer('min_dec_steps', 35, 'Minimum sequence length of generated summary. Applies only for beam search decoding mode')
 tf.app.flags.DEFINE_integer('max_article_sentences', 50,
                             'Max number of first sentences to use from the '
@@ -214,7 +213,7 @@ def main(unused_argv):
       emb_dim=FLAGS.emb_dim,  # If 0, don't use embedding
       vocabulary_size=FLAGS.vocabulary_size,
       max_grad_norm=2,
-      num_softmax_samples=40)  # If 0, no sampled softmax.
+      num_softmax_samples=0)  # If 0, no sampled softmax.
 
 
   
